@@ -1,0 +1,221 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light;
+  --ink: #18212f;
+  --muted: #667085;
+  --accent: #e8f05a;
+  --surface: #ffffff;
+  --shadow: 0 24px 70px rgb(13 26 48 / 18%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 10%, rgb(232 240 90 / 22%), transparent 28rem),
+    linear-gradient(145deg, #f7f9fc, #e9eef5);
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  width: min(1120px, 100% - 2rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 5rem) 0 2rem;
+}
+
+.intro {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.8rem;
+  color: #68721d;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.intro > p:last-child {
+  margin: 1rem auto 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.slider {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.slider__viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(1rem, 3vw, 1.8rem);
+  background: #dce3ec;
+  box-shadow: var(--shadow);
+  isolation: isolate;
+}
+
+.slider__track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transform: translateX(0);
+  transition: transform 520ms cubic-bezier(0.22, 0.75, 0.25, 1);
+  will-change: transform;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+}
+
+.slide::after {
+  position: absolute;
+  inset: 35% 0 0;
+  content: "";
+  background: linear-gradient(transparent, rgb(4 12 24 / 68%));
+  pointer-events: none;
+}
+
+.slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slide__caption {
+  position: absolute;
+  z-index: 1;
+  right: clamp(1.25rem, 4vw, 3rem);
+  bottom: clamp(1.25rem, 4vw, 2.5rem);
+  left: clamp(1.25rem, 4vw, 3rem);
+  color: white;
+  font-size: clamp(1.25rem, 3.5vw, 2.6rem);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 20%);
+}
+
+.slider__arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  width: clamp(2.5rem, 6vw, 3.25rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgb(255 255 255 / 88%);
+  box-shadow: 0 4px 18px rgb(0 0 0 / 16%);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 160ms ease, scale 160ms ease;
+}
+
+.slider__arrow:hover {
+  background: var(--accent);
+  scale: 1.06;
+}
+
+.slider__arrow:focus-visible,
+.slider__dot:focus-visible {
+  outline: 3px solid #202a44;
+  outline-offset: 4px;
+}
+
+.slider__arrow--prev { left: clamp(0.75rem, 2.5vw, 1.5rem); }
+.slider__arrow--next { right: clamp(0.75rem, 2.5vw, 1.5rem); }
+
+.slider__status {
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  margin: 0;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 999px;
+  color: white;
+  background: rgb(10 18 31 / 48%);
+  font-size: 0.75rem;
+  backdrop-filter: blur(8px);
+}
+
+.slider__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 1.25rem 0.5rem 0;
+}
+
+.slider__dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #b6c0ce;
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease, scale 220ms ease;
+}
+
+.slider__dot[aria-current="true"] {
+  width: 2rem;
+  background: #28364c;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .page { width: min(100% - 1rem, 1120px); padding-top: 2rem; }
+  .intro { margin-bottom: 1.5rem; }
+  .slider__viewport { aspect-ratio: 4 / 3; border-radius: 1rem; }
+  .slider__status { top: 0.65rem; right: 0.65rem; }
+  .footer { flex-direction: column; text-align: center; margin-top: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
